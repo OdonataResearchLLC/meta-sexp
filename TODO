@@ -1,5 +1,4 @@
 
-- Implement numeric rules.
 - Add unit testing.
 - Replace custom with-unique-names with Alexandria.
 - Update macros to generate new functions without using DEFUN.

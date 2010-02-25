@@ -59,4 +59,7 @@
            :space?
            :tab?
            :upper?
-           :white-space?))
+           :white-space?
+           ;; Common Rules
+           :integer?
+           :float?))
