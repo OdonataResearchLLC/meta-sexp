@@ -47,6 +47,7 @@
       (:assign num (+ (* num 10)
                       (- (char-code digit)
                          #.(char-code #\0)))))
+  (:or (:+ (:type white-space?)) (:eof))
   (:return (* sign num)))
 
 ;;; Parse a floating point number
@@ -95,6 +96,7 @@
             (:rule float-token-a?))
    (:assign (icomp iexp fcomp fexp exponent format)
             (:rule float-token-b?)))
+  (:or (:+ (:type white-space?)) (:eof))
   (:return (let ((ten (coerce 10 format)))
              (* sign
                 (+ icomp (* fcomp (expt ten fexp)))
