@@ -33,7 +33,7 @@
 
 |#
 
-(common-lisp:in-package :meta-sexp)
+(in-package :meta-sexp)
 
 (defrule sign? (&aux (sign 1)) ()
   (:? (:or (:and "-" (:assign sign -1)) "+"))

@@ -31,6 +31,8 @@
 (defpackage :meta-sexp
   (:documentation "LL(1) parser generator in META using s-expressions.")
   (:use :cl)
+  #+:lispworks
+  (:import-from :lispworks :with-unique-names)
   (:export :transform-grammar
            :defatom
            :defrule
