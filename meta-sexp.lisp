@@ -47,6 +47,8 @@
                        :size (or end (length input))
                        :attachment attachment))
 
+;;; FIXME : Replace MAKE-STRING-OUTPUT-STREAM with
+;;; WITH-OUTPUT-TO-STRING
 (defmethod create-parser-context
     ((input string-stream) &key buffer-size start end attachment)
   (loop with out = (make-string-output-stream)
@@ -62,6 +64,30 @@
                    :start start
                    :end (or end size)
                    :attachment attachment))))
+
+;;; FIXME : Store the original file position and restore it if an
+;;;         error is signaled.
+;;; FIXME : Profile for improvement by explicitly defining an
+;;;         output string of size = end - start.
+(defmethod create-parser-context ((input file-stream) &key
+                                  (buffer-size 8192)
+                                  (start (file-position input))
+                                  (end (file-length input))
+                                  attachment)
+  "Create the parser context from the file stream."
+  (file-position input start)
+  (let ((size (- end start)))
+    (if (< size array-total-size-limit)
+        (create-parser-context
+         (with-output-to-string (out)
+           (loop with buffer = (make-string buffer-size)
+                 for pos = (read-sequence buffer input)
+                 as read-count = pos then (+ read-count pos)
+                 do (write-string buffer out :end pos)
+                 until (or (< size read-count) (zerop pos))
+                 finally (setf size (min read-count size))))
+         :end size :attachment attachment)
+        (error "The file size exceeds ARRAY-TOTAL-SIZE-LIMIT."))))
 
 (declaim (inline peek-atom))
 (defun peek-atom (ctx)

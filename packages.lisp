@@ -65,3 +65,6 @@
            ;; Common Rules
            :integer?
            :float?))
+
+#+lw-editor
+(editor:setup-indent "defrule" 3 2 4)

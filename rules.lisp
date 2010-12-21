@@ -41,13 +41,11 @@
 
 ;;; Parse an integer
 (defrule integer? (&aux (sign 1) digit (num 0)) ()
-  (:* (:type white-space?))
   (:assign sign (:rule sign?))
   (:+ (:assign digit (:type digit?))
       (:assign num (+ (* num 10)
                       (- (char-code digit)
                          #.(char-code #\0)))))
-  (:or (:+ (:type white-space?)) (:eof))
   (:return (* sign num)))
 
 ;;; Parse a floating point number
@@ -89,14 +87,12 @@
            (or exponent 0) (or format *read-default-float-format*)))
 
 (defrule float? (&aux sign icomp iexp fcomp fexp exponent format) ()
-  (:* (:type white-space?))
   (:assign sign (:rule sign?))
   (:or
    (:assign (icomp iexp fcomp fexp exponent format)
             (:rule float-token-a?))
    (:assign (icomp iexp fcomp fexp exponent format)
             (:rule float-token-b?)))
-  (:or (:+ (:type white-space?)) (:eof))
   (:return (let ((ten (coerce 10 format)))
              (* sign
                 (+ icomp (* fcomp (expt ten fexp)))

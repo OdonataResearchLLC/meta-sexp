@@ -2,3 +2,4 @@
 - Add unit testing.
 - Replace custom with-unique-names with Alexandria.
 - Update macros to generate new functions without using DEFUN.
+- Add a documentation string to defrule.
