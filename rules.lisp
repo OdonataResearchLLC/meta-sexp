@@ -97,3 +97,17 @@
              (* sign
                 (+ icomp (* fcomp (expt ten fexp)))
                 (expt ten exponent)))))
+
+;;; NOTE : It is important to read the float first
+(defrule number? () ()
+  (:rule (or float? integer?)))
+
+;;; Skip a line
+(defrule skip-line? () ()
+  (:* (:type (or white-space? graphic?)))
+  (:type newline?))
+
+;;; End of file
+(defrule eof? () ()
+  (:* (:type (or white-space? newline?)))
+  (:eof))

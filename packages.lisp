@@ -63,8 +63,8 @@
            :upper?
            :white-space?
            ;; Common Rules
-           :integer?
-           :float?))
+           :integer? :float? :number?
+           :skip-line? :eof?))
 
 #+lw-editor
 (editor:setup-indent "defrule" 3 2 4)
