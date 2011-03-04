@@ -111,3 +111,8 @@
 (defrule eof? () ()
   (:* (:type (or white-space? newline?)))
   (:eof))
+
+;;; End of line
+(defrule eol? () ()
+  (:* (:type white-space?))
+  (:type newline?))
