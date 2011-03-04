@@ -68,3 +68,5 @@
 
 #+lw-editor
 (editor:setup-indent "defrule" 3 2 4)
+#+lw-editor
+(editor:setup-indent "defrender" 3 2 4)
