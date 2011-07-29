@@ -92,12 +92,12 @@
 (declaim (inline peek-atom))
 (defun peek-atom (ctx)
   (if (< (parser-context-cursor ctx) (parser-context-size ctx))
-      (schar (parser-context-data ctx) (parser-context-cursor ctx))))
+      (elt (parser-context-data ctx) (parser-context-cursor ctx))))
 
 (declaim (inline read-atom))
 (defun read-atom (ctx)
   (if (< (parser-context-cursor ctx) (parser-context-size ctx))
-    (schar (parser-context-data ctx) (1- (incf (parser-context-cursor ctx))))))
+    (elt (parser-context-data ctx) (1- (incf (parser-context-cursor ctx))))))
 
 (declaim (inline checkpoint))
 (defun checkpoint (ctx)
@@ -375,7 +375,7 @@ print the value of the VAR."
           `(format t "DEBUG: ~s: ~a~%" ',(car args) ,(car args))
           `(format t "DEBUG: cursor: [~s] `~s'~%"
                    (parser-context-cursor ,ctx)
-                   (schar (parser-context-data ,ctx)
+                   (elt (parser-context-data ,ctx)
                           (parser-context-cursor ,ctx))))))
 
 
