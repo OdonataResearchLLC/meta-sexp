@@ -89,6 +89,17 @@
          :end size :attachment attachment)
         (error "The file size exceeds ARRAY-TOTAL-SIZE-LIMIT."))))
 
+(defmethod create-parser-context ((pathname pathname) &key
+                                  (buffer-size 8192)
+                                  start end attachment)
+  "Create a parser context from a file."
+  (with-open-file (input pathname :direction :input)
+    (create-parser-context input
+                           :buffer-size buffer-size
+                           :start (or start (file-position input))
+                           :end (or end (file-length input))
+                           :attachment attachment)))
+
 (declaim (inline peek-atom))
 (defun peek-atom (ctx)
   (if (< (parser-context-cursor ctx) (parser-context-size ctx))
