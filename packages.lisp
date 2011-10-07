@@ -65,8 +65,3 @@
            ;; Common Rules
            :integer? :float? :number?
            :skip-line? :eof? :eol?))
-
-#+lw-editor
-(editor:setup-indent "defrule" 3 2 4)
-#+lw-editor
-(editor:setup-indent "defrender" 3 2 4)
