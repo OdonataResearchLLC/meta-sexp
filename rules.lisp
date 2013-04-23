@@ -98,21 +98,33 @@
                 (+ icomp (* fcomp (expt ten fexp)))
                 (expt ten exponent)))))
 
-;;; NOTE : It is important to read the float first
 (defrule number? () ()
+  ;; NOTE : It is important to read the float first
   (:rule (or float? integer?)))
 
-;;; Skip a line
+;;; Line rules
+
+(defrule blank-line? () ()
+  (:* (:type white-space?))
+  (:type newline?))
+
 (defrule skip-line? () ()
   (:* (:type (or white-space? graphic?)))
   (:type newline?))
 
-;;; End of file
-(defrule eof? () ()
-  (:* (:type (or white-space? newline?)))
-  (:eof))
+(defrule echo-skip-line? (&aux chr (line (make-char-accum))) ()
+  (:*
+   (:assign chr (:type (or white-space? graphic?)))
+   (:char-push chr line))
+  (:type newline?)
+  (:return line))
 
-;;; End of line
 (defrule eol? () ()
   (:* (:type white-space?))
   (:type newline?))
+
+;;; End of file
+
+(defrule eof? () ()
+  (:* (:type (or white-space? newline?)))
+  (:eof))
