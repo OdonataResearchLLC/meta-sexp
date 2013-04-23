@@ -30,7 +30,7 @@
 
 (defpackage :meta-sexp
   (:documentation "LL(1) parser generator in META using s-expressions.")
-  (:use :cl)
+  (:use :common-lisp)
   #+lispworks
   (:import-from :lispworks :with-unique-names)
   (:export :transform-grammar
@@ -38,18 +38,18 @@
            :defrule
            :defrenderer
            :create-parser-context
-           :meta
-           ;; Accumulators.
-           :make-char-accum
+           :meta)
+  ;; Accumulators.
+  (:export :make-char-accum
            :char-accum-push
            :reset-char-accum
            :empty-char-accum-p
            :make-list-accum
            :list-accum-push
            :reset-list-accum
-           :empty-list-accum-p
-           ;; Builtin Type-Checkers
-           :alnum?
+           :empty-list-accum-p)
+  ;; Builtin Type-Checkers
+  (:export :alnum?
            :alpha?
            :ascii?
            :bit?
@@ -61,7 +61,13 @@
            :space?
            :tab?
            :upper?
-           :white-space?
-           ;; Common Rules
-           :integer? :float? :number?
-           :skip-line? :eof? :eol?))
+           :white-space?)
+  ;; Number rules
+  (:export :integer?
+           :float?
+           :number?)
+  ;; Line rules
+  (:export :blank-line?
+           :skip-line?
+           :echo-skip-line?
+           :eol? :eof?))
