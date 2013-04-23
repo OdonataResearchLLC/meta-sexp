@@ -38,6 +38,7 @@
            :defrule
            :defrenderer
            :create-parser-context
+           :reset-parser-context
            :meta)
   ;; Accumulators.
   (:export :make-char-accum

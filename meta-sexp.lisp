@@ -47,6 +47,12 @@
           (parser-context-cursor object)
           (parser-context-attachment object)))
 
+(defun reset-parser-context (ctx)
+  "Reset the cursor position of the parser context to 0."
+  (setf (parser-context-cursor ctx) 0)
+  ;; Return the parser context
+  ctx)
+
 (defgeneric create-parser-context (input &rest args))
 
 (defmethod create-parser-context ((input string) &key start end attachment)
