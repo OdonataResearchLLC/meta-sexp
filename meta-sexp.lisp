@@ -39,6 +39,14 @@
   (icases nil)
   attachment)
 
+(defmethod print-object ((object parser-context) stream)
+  "Print a summary of the parser-context."
+  (format stream "#S(~A SIZE:~D CURSOR:~D ATTACHMENT:~A)~%"
+          (class-name (class-of object))
+          (parser-context-size object)
+          (parser-context-cursor object)
+          (parser-context-attachment object)))
+
 (defgeneric create-parser-context (input &rest args))
 
 (defmethod create-parser-context ((input string) &key start end attachment)
