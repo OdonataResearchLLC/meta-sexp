@@ -27,7 +27,7 @@
 
 (in-package :meta-sexp-test)
 
-;;; Utitlities
+;;; Utilities
 
 (defun test-float? (text)
   "Return the floating point number parsed from the text."

@@ -55,11 +55,13 @@
 
 (defgeneric create-parser-context (input &rest args))
 
-(defmethod create-parser-context ((input string) &key start end attachment)
-  (make-parser-context :data input
-                       :cursor (or start 0)
-                       :size (or end (length input))
-                       :attachment attachment))
+(defmethod create-parser-context
+    ((input string) &key start end attachment)
+  (make-parser-context
+   :data input
+   :cursor (or start 0)
+   :size (or end (length input))
+   :attachment attachment))
 
 ;;; FIXME : Replace MAKE-STRING-OUTPUT-STREAM with
 ;;; WITH-OUTPUT-TO-STRING
