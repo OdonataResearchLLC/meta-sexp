@@ -30,10 +30,14 @@
 ;;; Utilities
 
 (meta-sexp:defrule fixed-width-8? () ()
-  (:fixed-width 8 (:rule meta-sexp:float?)))
+  (:fixed-width 8
+   (:* (:type meta-sexp:space?))
+   (:rule meta-sexp:float?)))
 
 (meta-sexp:defrule fixed-width-10? () ()
-  (:fixed-width 10 (:rule meta-sexp:float?)))
+  (:fixed-width 10
+   (:* (:type meta-sexp:space?))
+   (:rule meta-sexp:float?)))
 
 ;;; Tests
 
@@ -46,4 +50,15 @@
     (assert-float-equal 12.345679 (fixed-width-10? ctx))
     (assert-eq 18 (meta-sexp::parser-context-cursor ctx))
     (assert-float-equal 123.4567 (fixed-width-8? ctx))
-    (assert-eq 26 (meta-sexp::parser-context-cursor ctx))))
+    (assert-eq 26 (meta-sexp::parser-context-cursor ctx)))
+  ;; Embedded spaces
+  (let ((ctx (meta-sexp:create-parser-context
+              " 6.167E-04 4.552E-04-9.643E-04-3.370E-03")))
+    (assert-float-equal  6.167E-04 (fixed-width-10? ctx))
+    (assert-eq 10 (meta-sexp::parser-context-cursor ctx))
+    (assert-float-equal  4.552E-04 (fixed-width-10? ctx))
+    (assert-eq 20 (meta-sexp::parser-context-cursor ctx))
+    (assert-float-equal -9.643E-04 (fixed-width-10? ctx))
+    (assert-eq 30 (meta-sexp::parser-context-cursor ctx))
+    (assert-float-equal -3.370E-03 (fixed-width-10? ctx))
+    (assert-eq 40 (meta-sexp::parser-context-cursor ctx))))

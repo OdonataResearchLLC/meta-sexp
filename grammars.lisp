@@ -39,8 +39,7 @@ Apply the rule to a fixed width field.)"
                  (create-parser-context
                   (subseq (parser-context-data ,ctx) ,start ,end)))
                 (,val
-                 ,(transform-grammar
-                   ret subctx t (second args))))
+                 ,(transform-grammar ret subctx t :and (rest args))))
            (when ,val
              (setf (parser-context-cursor ,ctx) ,end))
            ,val)))))
