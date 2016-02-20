@@ -42,5 +42,6 @@
   :components ((:file "packages")
                (:file "util")
                (:file "meta-sexp")
+               (:file "grammars")
                (:file "atoms")
                (:file "rules")))
